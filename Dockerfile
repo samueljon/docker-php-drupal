@@ -1,4 +1,4 @@
-FROM php:fpm
+FROM php:7-fpm
 MAINTAINER Samúel Jón Gunnarsson <samuel.jon.gunnarsson@gmail.com>
 
 ENV CONTAINER_USER runner
@@ -18,18 +18,6 @@ RUN apt-get update \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
         libpng12-dev \
-        php5-xdebug \
-        php5-intl \
-        php5-geoip \
-        php5-imagick \
-        php5-json \
-        php5-intl \
-        php5-mcrypt \
-        php5-pspell \
-        php5-recode \
-        php5-tidy \
-        php5-xmlrpc \
-        php5-xsl \
     && docker-php-ext-install \
         pdo_mysql \
         mbstring \
@@ -38,12 +26,12 @@ RUN apt-get update \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd
 
-RUN apt-get update && apt-get install -y php-pear curl zlib1g-dev libncurses5-dev
+#RUN apt-get update && apt-get install -y php-pear curl zlib1g-dev libncurses5-dev
 #http://pecl.php.net/package/memcache/3.0.8
-RUN curl -L http://pecl.php.net/get/memcache-3.0.8.tgz >> /usr/src/php/ext/memcache.tgz && \
-	tar -xf /usr/src/php/ext/memcache.tgz -C /usr/src/php/ext/ && \
-	rm /usr/src/php/ext/memcache.tgz && \
-	docker-php-ext-install memcache-3.0.8
+#RUN curl -L http://pecl.php.net/get/memcache-3.0.8.tgz >> /usr/src/php/ext/memcache.tgz && \
+#	tar -xf /usr/src/php/ext/memcache.tgz -C /usr/src/php/ext/ && \
+#	rm /usr/src/php/ext/memcache.tgz && \
+#	docker-php-ext-install memcache-3.0.8
 
 WORKDIR /websites
 COPY ./php-fpm.conf /usr/local/etc/
